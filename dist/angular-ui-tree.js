@@ -1,5 +1,5 @@
 /**
- * @license Angular UI Tree v2.5.0
+ * @license Angular UI Tree v2.6.0
  * (c) 2010-2015. https://github.com/angular-ui-tree/angular-ui-tree
  * License: MIT
  */
@@ -436,10 +436,7 @@
             // and the 'max-depth' attribute in `ui-tree` or `ui-tree-nodes`.
             // the method can be overrided
             callbacks.accept = function (sourceNodeScope, destNodesScope, destIndex) {
-              if (destNodesScope.nodropEnabled || destNodesScope.outOfDepth(sourceNodeScope)) {
-                return false;
-              }
-              return true;
+              return !(destNodesScope.nodropEnabled || destNodesScope.outOfDepth(sourceNodeScope));
             };
 
             callbacks.beforeDrag = function (sourceNodeScope) {
@@ -1112,10 +1109,7 @@
            */
           nodrag: function (targetElm) {
             if (typeof targetElm.attr('data-nodrag') != 'undefined') {
-              if (targetElm.attr('data-nodrag') === 'false') {
-                return false;
-              }
-              return true;
+              return targetElm.attr('data-nodrag') !== 'false';
             }
             return false;
           },
